@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import './styles.css'
+import $ from 'jquery';
 export default class BlockQuote extends Component {
     constructor(props) {
         super(props);
@@ -21,21 +23,21 @@ export default class BlockQuote extends Component {
         this.fetchQuotes()
     }
     animate(quote, author) {
-       window.$(".quote-text").animate(
+       $(".quote-text").animate(
             { opacity: 0 },
             500,
             function () {
-                window.$(this).animate({ opacity: 1 }, 500);
-                window.$('#text').text(quote);
+                $(this).animate({ opacity: 1 }, 500);
+                $('#text').text(quote);
             }
         );
 
-        window.$(".quote-author").animate(
+        $(".quote-author").animate(
             { opacity: 0 },
             500,
             function () {
-                window.$(this).animate({ opacity: 1 }, 500);
-                window.$('#author').html(author);
+                $(this).animate({ opacity: 1 }, 500);
+                $('#author').html(author);
             }
         );
     }
@@ -53,8 +55,7 @@ export default class BlockQuote extends Component {
                     <blockquote className="blockquote text-center">
 
                         <div className="quote-text">
-                            <p id="text" className="mb-0"><i className="fa fa-quote-left"></i>  <i className="fa fa-quote-right"></i></p>
-
+                            <p id="text" className="mb-0"> </p>
                         </div>
                         <div className="quote-author">
                             <footer id="author" className="blockquote-footer"></footer>
