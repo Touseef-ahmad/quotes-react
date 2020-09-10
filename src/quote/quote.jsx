@@ -59,7 +59,6 @@ export default class BlockQuote extends Component {
                         </div>
                         <div className="quote-author">
                             <footer id="author" className="blockquote-footer"></footer>
-
                         </div>
                     </blockquote>
 
