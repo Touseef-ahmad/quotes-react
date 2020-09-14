@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './styles.css'
 import $ from 'jquery';
-export default class BlockQuote extends Component {
+export default class BlockQuote extends React.Component {
     constructor(props) {
         super(props);
 
@@ -51,7 +51,7 @@ export default class BlockQuote extends Component {
 
         return (
             <div className="row">
-                <div id="quote-box" className=" col-12">
+                <div id="quote-box" className="col-md-12 col-sm-12 col-12">
                     <blockquote className="blockquote text-center">
 
                         <div className="quote-text">
@@ -63,12 +63,12 @@ export default class BlockQuote extends Component {
                     </blockquote>
 
                     <div className="row">
-                        <div className="col-3 offset-2">
+                        <div className="col-md-3 offset-md-2 col-sm-3 offset-sm-2 col-3 offset-2">
                             <a rel="noopener noreferrer" className="btn btn-primary btn-block" id="tweet-quote" href="https://twitter.com/intent/tweet" target="_blank">
                                 <i className="fa fa-twitter"></i>
                             </a>
                         </div>
-                        <div className="col-3 offset-2">
+                        <div className="col-md-3 offset-md-2 col-sm-3 offset-sm-2 col-3 offset-2">
                             <button className="btn btn-primary btn-block" id="new-quote" onClick={this.randomQuote}>New</button>
                         </div>
                     </div>

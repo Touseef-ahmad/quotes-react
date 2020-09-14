@@ -8,8 +8,10 @@ class App extends React.Component {
   
   render() {
     return (
-      <div className="center">
+      <div className="my-container">
+        <div className="center">
         <Quote/>
+      </div>
       </div>
     );
   }
