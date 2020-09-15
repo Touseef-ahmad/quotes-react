@@ -10,8 +10,8 @@ class App extends React.Component {
     return (
       <div className="my-container">
         <div className="center">
-        <Quote/>
-      </div>
+          <Quote/>
+        </div>
       </div>
     );
   }
