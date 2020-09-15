@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {fetchQuotes} from '../api';
 import './styles.css'
 class BlockQuote extends Component {
     constructor(props) {
@@ -6,11 +7,12 @@ class BlockQuote extends Component {
 
         this.state = {
             quotes: [],
-            quote: {},
+            quote: {text:'Java is to JavaScript what Car is to Carpet.', 
+                    author:'A JS Developer'},
             quoteBoxStyles: {opacity:1}
         }
         this.randomQuote = this.randomQuote.bind(this)
-        this.fetchQuotes = this.fetchQuotes.bind(this)
+        this.setInitialState = this.setInitialState.bind(this)
         this.fadeIn = this.fadeIn.bind(this)
         this.fadeOut = this.fadeOut.bind(this)
     }
@@ -18,15 +20,13 @@ class BlockQuote extends Component {
         this.setState({quote})
         this.fadeIn()
     }
-    fetchQuotes() {
-        fetch('https://type.fit/api/quotes')
-            .then(data => data.json())
-            .then(data => this.setState({ quotes: data }))
-            .then(this.randomQuote)
-    }
+    
+    setInitialState(data){
+        this.setState({ quotes: data },this.randomQuote)
+    } 
 
     componentDidMount() {
-        this.fetchQuotes()
+        fetchQuotes(this.setInitialState)
     }
     fadeOut(){
         this.setState({quoteBoxStyles : {opacity : 0}})
