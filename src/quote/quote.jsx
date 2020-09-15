@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './styles.css'
-import $ from 'jquery';
-export default class BlockQuote extends React.Component {
+export default class BlockQuote extends Component {
     constructor(props) {
         super(props);
 
@@ -22,25 +21,6 @@ export default class BlockQuote extends React.Component {
     componentDidMount() {
         this.fetchQuotes()
     }
-    animate(quote, author) {
-       $(".quote-text").animate(
-            { opacity: 0 },
-            500,
-            function () {
-                $(this).animate({ opacity: 1 }, 500);
-                $('#text').text(quote);
-            }
-        );
-
-        $(".quote-author").animate(
-            { opacity: 0 },
-            500,
-            function () {
-                $(this).animate({ opacity: 1 }, 500);
-                $('#author').html(author);
-            }
-        );
-    }
     randomQuote() {
         const { quotes } = this.state;
         const randomItem = quotes[Math.floor(Math.random() * quotes.length)];
@@ -58,7 +38,9 @@ export default class BlockQuote extends React.Component {
                             <p id="text" className="mb-0"> </p>
                         </div>
                         <div className="quote-author">
-                            <footer id="author" className="blockquote-footer"></footer>
+                            <footer id="author" 
+                                    className="blockquote-footer">
+                            </footer>
                         </div>
                     </blockquote>
 
