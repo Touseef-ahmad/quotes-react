@@ -8,3 +8,6 @@
 i {
     display: inline;
 }
+#quote-box {
+    transition: 1s;;
+}

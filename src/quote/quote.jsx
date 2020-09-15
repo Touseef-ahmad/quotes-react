@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
 import './styles.css'
-export default class BlockQuote extends Component {
+class BlockQuote extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             quotes: [],
             quote: {},
+            quoteBoxStyles: {opacity:1}
         }
         this.randomQuote = this.randomQuote.bind(this)
         this.fetchQuotes = this.fetchQuotes.bind(this)
+        this.fadeIn = this.fadeIn.bind(this)
+        this.fadeOut = this.fadeOut.bind(this)
+    }
+    setQuote(quote){
+        this.setState({quote})
+        this.fadeIn()
     }
     fetchQuotes() {
         fetch('https://type.fit/api/quotes')
@@ -21,25 +28,34 @@ export default class BlockQuote extends Component {
     componentDidMount() {
         this.fetchQuotes()
     }
+    fadeOut(){
+        this.setState({quoteBoxStyles : {opacity : 0}})
+    }
+    fadeIn(){
+        this.setState({quoteBoxStyles : {opacity : 1}})
+    }
     randomQuote() {
+        this.fadeOut();
         const { quotes } = this.state;
         const randomItem = quotes[Math.floor(Math.random() * quotes.length)];
-        this.animate(randomItem.text, randomItem.author)
+        setTimeout(()=>this.setQuote(randomItem) , 1000)
     }
     render() {
 
-
+        const {text , author} = this.state.quote;
+        const quoteBoxStyles = this.state.quoteBoxStyles;
         return (
             <div className="row">
-                <div id="quote-box" className="col-md-12 col-sm-12 col-12">
+                <div id="quote-box" style={quoteBoxStyles} className="col-md-12 col-sm-12 col-12">
                     <blockquote className="blockquote text-center">
 
                         <div className="quote-text">
-                            <p id="text" className="mb-0"> </p>
+                            <p id="text" className="mb-0">{text}</p>
                         </div>
                         <div className="quote-author">
                             <footer id="author" 
                                     className="blockquote-footer">
+                                    {author}
                             </footer>
                         </div>
                     </blockquote>
@@ -60,3 +76,4 @@ export default class BlockQuote extends Component {
         )
     }
 }
+export default BlockQuote;
