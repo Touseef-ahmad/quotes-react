@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {fetchQuotes} from '../api';
 import './styles.css'
 class BlockQuote extends Component {
     constructor(props) {
@@ -6,11 +7,12 @@ class BlockQuote extends Component {
 
         this.state = {
             quotes: [],
-            quote: {},
+            quote: {text:'Java is to JavaScript what Car is to Carpet.', 
+                    author:'A JS Developer'},
             quoteBoxStyles: {opacity:1}
         }
         this.randomQuote = this.randomQuote.bind(this)
-        this.fetchQuotes = this.fetchQuotes.bind(this)
+        this.setInitialState = this.setInitialState.bind(this)
         this.fadeIn = this.fadeIn.bind(this)
         this.fadeOut = this.fadeOut.bind(this)
     }
@@ -18,15 +20,13 @@ class BlockQuote extends Component {
         this.setState({quote})
         this.fadeIn()
     }
-    fetchQuotes() {
-        fetch('https://type.fit/api/quotes')
-            .then(data => data.json())
-            .then(data => this.setState({ quotes: data }))
-            .then(this.randomQuote)
-    }
+    
+    setInitialState(data){
+        this.setState({ quotes: data },this.randomQuote)
+    } 
 
     componentDidMount() {
-        this.fetchQuotes()
+        fetchQuotes(this.setInitialState)
     }
     fadeOut(){
         this.setState({quoteBoxStyles : {opacity : 0}})
@@ -46,7 +46,10 @@ class BlockQuote extends Component {
         const quoteBoxStyles = this.state.quoteBoxStyles;
         return (
             <div className="row">
-                <div id="quote-box" style={quoteBoxStyles} className="col-md-12 col-sm-12 col-12">
+                <div id="quote-box" 
+                    style={quoteBoxStyles} 
+                    className="col-md-12 col-sm-12 col-12">
+
                     <blockquote className="blockquote text-center">
 
                         <div className="quote-text">
@@ -67,7 +70,10 @@ class BlockQuote extends Component {
                             </a>
                         </div>
                         <div className="col-md-3 offset-md-2 col-sm-3 offset-sm-2 col-3 offset-2">
-                            <button className="btn btn-primary btn-block" id="new-quote" onClick={this.randomQuote}>New</button>
+                            <button className="btn btn-primary btn-block" 
+                                    id="new-quote" 
+                                    onClick={this.randomQuote}>
+                            New</button>
                         </div>
                     </div>
                 </div>
