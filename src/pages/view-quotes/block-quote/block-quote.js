@@ -1,8 +1,51 @@
 import React, { Component } from 'react';
+import {fetchQuotes} from '../api';
 import './styles.css'
+<<<<<<< HEAD:src/pages/view-quotes/block-quote/block-quote.js
 
 class BlockQuote extends Component {
     
+=======
+class BlockQuote extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            quotes: [],
+            quote: {text:'Java is to JavaScript what Car is to Carpet.', 
+                    author:'A JS Developer'},
+            quoteBoxStyles: {opacity:1}
+        }
+        this.randomQuote = this.randomQuote.bind(this)
+        this.setInitialState = this.setInitialState.bind(this)
+        this.fadeIn = this.fadeIn.bind(this)
+        this.fadeOut = this.fadeOut.bind(this)
+    }
+    setQuote(quote){
+        this.setState({quote})
+        this.fadeIn()
+    }
+    
+    setInitialState(data){
+        this.setState({ quotes: data },this.randomQuote)
+    } 
+
+    componentDidMount() {
+        fetchQuotes(this.setInitialState)
+    }
+    fadeOut(){
+        this.setState({quoteBoxStyles : {opacity : 0}})
+    }
+    fadeIn(){
+        this.setState({quoteBoxStyles : {opacity : 1}})
+    }
+    randomQuote() {
+        this.fadeOut();
+        const { quotes } = this.state;
+        const randomItem = quotes[Math.floor(Math.random() * quotes.length)];
+        setTimeout(()=>this.setQuote(randomItem) , 1000)
+    }
+>>>>>>> aa7ee7c74b2e5b0c2849ff642654b3d8d3f9cf12:src/quote/quote.jsx
     render() {
 
         const {text , author} = this.props;
