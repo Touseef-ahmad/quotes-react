@@ -1,0 +1,25 @@
+.my-container {
+  padding: 20px;
+  font-family: sans-serif;
+  height: 100vh !important;
+  background:linear-gradient(0deg, rgb(136, 216, 176 , 0.7), rgba(124, 223, 221, 0.8)), url('https://i.ytimg.com/vi/FAKW2lh9r_4/maxresdefault.jpg');
+  background-size:cover;
+}
+.center{
+  padding: 10px;
+  width: 40vw;
+  background-color: rgba(255, 255, 255, 0.7);;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  border-radius: 10px ;
+}
+.opacity0 {
+  opacity: 0;
+  transition: 0.7s;
+}
+.opacity1 {
+  opacity: 1;
+  transition: 0.7s;
+}
