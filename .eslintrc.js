@@ -4,7 +4,7 @@ module.exports = {
 		browser: true,
 		node: true,
 	},
-	extends: ['airbnb', 'plugin:jest/recommended', 'jest-enzyme'],
+	extends: ['airbnb'],
 	plugins: [
 		'babel',
 		'import',
@@ -43,12 +43,14 @@ module.exports = {
 		'react/jsx-filename-extension': ['error', { extensions: ['.js'] }], // airbnb is using .jsx
 
 		'prefer-destructuring': 'off',
+		'import/prefer-default-export': 'off',
 
 		'react/no-find-dom-node': 'off', // I don't know
 		'react/no-did-mount-set-state': 'off',
 		'react/no-unused-prop-types': 'off', // Is still buggy
 		'react/jsx-one-expression-per-line': 'off',
 
+		"jsx-quotes": 'off',
 		"jsx-a11y/anchor-is-valid": ["error", { "components": ["Link"], "specialLink": ["to"] }],
 		"jsx-a11y/label-has-for": [2, {
 			"required": {

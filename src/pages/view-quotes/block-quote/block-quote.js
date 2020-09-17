@@ -1,57 +1,49 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { propTypes, defaultProps } from './prop-types';
 import './styles.css';
 
-function BlockQuote(props) {
-  const { text, author, randomQuote } = props;
-  return (
-    <div className="row">
-      <div id="quote-box" className="col-md-12 col-sm-12 col-12">
-        <blockquote className="blockquote text-center">
-          <div className="quote-text">
-            <p id="text" className="mb-0">
-              {text}
-            </p>
-          </div>
-          <div className="quote-author">
-            <footer id="author" className="blockquote-footer">
-              {author}
-            </footer>
-          </div>
-        </blockquote>
+export const BlockQuote = ({ author, chooseRandomQuote, text }) => (
+  <div className='row'>
+    <div id='quote-box' className='col-md-12 col-sm-12 col-12'>
+      <blockquote className='blockquote text-center'>
+        <div className='quote-text'>
+          <p id='text' className='mb-0'>
+            {text}
+          </p>
+        </div>
+        <div className='quote-author'>
+          <footer id='author' className='blockquote-footer'>
+            {author}
+          </footer>
+        </div>
+      </blockquote>
 
-        <div className="row">
-          <div className="col-md-3 offset-md-2 col-sm-3 offset-sm-2 col-3 offset-2">
-            <a
-              rel="noopener noreferrer"
-              className="btn btn-primary btn-block"
-              id="tweet-quote"
-              href="https://twitter.com/intent/tweet"
-              target="_blank"
-            >
-              <i className="fa fa-twitter" />
-            </a>
-          </div>
-          <div className="col-md-3 offset-md-2 col-sm-3 offset-sm-2 col-3 offset-2">
-            <button
-              className="btn btn-primary btn-block"
-              id="new-quote"
-              onClick={randomQuote}
-              type="button"
-            >
-              New
-            </button>
-          </div>
+      <div className='row'>
+        <div className='col-md-3 offset-md-2 col-sm-3 offset-sm-2 col-3 offset-2'>
+          <a
+            rel='noopener noreferrer'
+            className='btn btn-primary btn-block'
+            id='tweet-quote'
+            href='https://twitter.com/intent/tweet'
+            target='_blank'
+          >
+            <i className='fa fa-twitter' />
+          </a>
+        </div>
+        <div className='col-md-3 offset-md-2 col-sm-3 offset-sm-2 col-3 offset-2'>
+          <button
+            className='btn btn-primary btn-block'
+            id='new-quote'
+            onClick={chooseRandomQuote}
+            type='button'
+          >
+            New
+          </button>
         </div>
       </div>
     </div>
-  );
-}
+  </div>
+);
 
-BlockQuote.propTypes = {
-  text: PropTypes.string,
-  author: PropTypes.string,
-  randomQuote: PropTypes.func.isRequired,
-};
-
-export { BlockQuote };
+BlockQuote.propTypes = propTypes;
+BlockQuote.defaultProps = defaultProps;
