@@ -1,3 +1,1 @@
-export {
-  BlockQuote
-} from './block-quote';
+export { BlockQuote } from './block-quote';
