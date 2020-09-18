@@ -1,6 +1,5 @@
 import React from 'react';
 import { propTypes, defaultProps } from './prop-types';
-import './styles.css';
 
 export const BlockQuote = ({ author, chooseRandomQuote, text }) => (
   <div className='row'>
