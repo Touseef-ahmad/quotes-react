@@ -11,9 +11,7 @@ export const BlockQuote = ({ author, chooseRandomQuote, text }) => (
           </p>
         </div>
         <div className='quote-author'>
-          <footer id='author' className='blockquote-footer'>
-            {author}
-          </footer>
+          <span id='author'>-- {author}</span>
         </div>
       </blockquote>
 
