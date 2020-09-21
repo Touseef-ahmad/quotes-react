@@ -1,8 +1,9 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
+import { Provider } from 'react-redux';
 import Switch from '@material-ui/core/Switch';
-import { ViewQuotes } from './pages/view-quotes';
-
+import { ConnectedViewQuotes } from './pages/view-quotes';
+import { store } from './store';
 // bootstrap imports
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -30,17 +31,19 @@ class App extends React.Component {
   render() {
     const { darkThemeChecked } = this.state;
     return (
-      <ThemeProvider theme={darkThemeChecked ? darkTheme : lightTheme}>
-        <Switch
-          checked={darkThemeChecked}
-          onChange={this.handleChange}
-          color='primary'
-          name='checkedB'
-          inputProps={{ 'aria-label': 'primary checkbox' }}
-        />
-        <span>Swtich to {darkThemeChecked ? 'light' : 'dark'} theme</span>
-        <ViewQuotes />
-      </ThemeProvider>
+      <Provider store={store}>
+        <ThemeProvider theme={darkThemeChecked ? darkTheme : lightTheme}>
+          <Switch
+            checked={darkThemeChecked}
+            onChange={this.handleChange}
+            color='primary'
+            name='checkedB'
+            inputProps={{ 'aria-label': 'primary checkbox' }}
+          />
+          <span>Swtich to {darkThemeChecked ? 'light' : 'dark'} theme</span>
+          <ConnectedViewQuotes />
+        </ThemeProvider>
+      </Provider>
     );
   }
 }

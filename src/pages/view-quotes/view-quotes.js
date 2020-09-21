@@ -1,51 +1,39 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { propTypes } from './prop-types';
 import { BlockQuote } from './block-quote';
-import { fetchQuotes } from '../../api';
+import { fetchQuotesAction, getRandomQuote } from '../../actions';
 import { StyledDiv, StyledWrapper } from './styled';
 
 class ViewQuotes extends React.Component {
-  state = {
-    quotes: [],
-    quote: {
-      text: 'Java is to JavaScript what Car is to Carpet.',
-      author: 'A JS Developer',
-    },
-    displayQuoteBox: true,
-  };
-
   componentDidMount() {
-    this.onGetQuotes();
+    const { dispatch } = this.props;
+    dispatch(fetchQuotesAction());
   }
 
-  onGetQuotes = async () => {
-    const quotes = await fetchQuotes();
-    this.setState({ quotes }, this.chooseRandomQuote);
-  };
-
-  setQuote = quote => {
-    this.setState({ quote, displayQuoteBox: true });
-  };
-
-  chooseRandomQuote = () => {
-    this.setState({ displayQuoteBox: false });
-    const { quotes } = this.state;
-    const randomItem = quotes[Math.floor(Math.random() * quotes.length)];
-    // wait for the transition animation to complete
-    setTimeout(() => this.setQuote(randomItem), 700);
-  };
-
   render() {
-    const { quote, displayQuoteBox } = this.state;
+    const { quote, loading, dispatch } = this.props;
     const { text, author } = quote;
 
     return (
       <StyledWrapper>
-        <StyledDiv isVisible={displayQuoteBox}>
-          <BlockQuote author={author} text={text} chooseRandomQuote={this.chooseRandomQuote} />
+        <StyledDiv isVisible={!loading}>
+          <BlockQuote
+            author={author}
+            text={text}
+            chooseRandomQuote={() => dispatch(getRandomQuote())}
+          />
         </StyledDiv>
       </StyledWrapper>
     );
   }
 }
 
-export { ViewQuotes };
+ViewQuotes.propTypes = propTypes;
+
+const mapStateToProps = state => ({
+  quote: state.quotesReducer.quote,
+  loading: state.quotesReducer.loading,
+});
+
+export const ConnectedViewQuotes = connect(mapStateToProps)(ViewQuotes);
