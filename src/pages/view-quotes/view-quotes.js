@@ -1,7 +1,7 @@
 import React from 'react';
 import { BlockQuote } from './block-quote';
 import { fetchQuotes } from '../../api';
-import './styles.css';
+import { StyledDiv, StyledWrapper } from './styled';
 
 class ViewQuotes extends React.Component {
   state = {
@@ -37,14 +37,13 @@ class ViewQuotes extends React.Component {
   render() {
     const { quote, displayQuoteBox } = this.state;
     const { text, author } = quote;
-    const quoteBoxClass = displayQuoteBox ? 'visible' : 'hidden';
 
     return (
-      <div className='my-container'>
-        <div className={`center ${quoteBoxClass}`}>
+      <StyledWrapper>
+        <StyledDiv isVisible={displayQuoteBox}>
           <BlockQuote author={author} text={text} chooseRandomQuote={this.chooseRandomQuote} />
-        </div>
-      </div>
+        </StyledDiv>
+      </StyledWrapper>
     );
   }
 }

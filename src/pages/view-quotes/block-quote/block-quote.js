@@ -1,6 +1,5 @@
 import React from 'react';
 import { propTypes, defaultProps } from './prop-types';
-import './styles.css';
 
 export const BlockQuote = ({ author, chooseRandomQuote, text }) => (
   <div className='row'>
@@ -12,9 +11,7 @@ export const BlockQuote = ({ author, chooseRandomQuote, text }) => (
           </p>
         </div>
         <div className='quote-author'>
-          <footer id='author' className='blockquote-footer'>
-            {author}
-          </footer>
+          <span id='author'>-- {author}</span>
         </div>
       </blockquote>
 
