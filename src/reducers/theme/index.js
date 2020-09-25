@@ -1,14 +1,15 @@
 import { actionTypes } from '../../actions/theme';
+import { THEMES } from '../../styles';
 
 const INITIAL_STATE = {
-  theme: {},
+  theme: THEMES.LIGHT,
 };
 
 export const themeReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case actionTypes.THEME_SET:
       return {
-        theme: action.payload.theme,
+        theme: THEMES[action.payload.themeType],
       };
     default:
       return state;

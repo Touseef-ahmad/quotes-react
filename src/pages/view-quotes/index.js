@@ -1,1 +1,1 @@
-export { ConnectedViewQuotes } from './view-quotes';
+export * from './view-quotes';

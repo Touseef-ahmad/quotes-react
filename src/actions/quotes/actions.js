@@ -31,5 +31,3 @@ export const fetchQuotesAction = () => {
     }
   };
 };
-
-//   quote: action.payload.quotes[Math.floor(Math.random() * action.payload.quotes.length)],

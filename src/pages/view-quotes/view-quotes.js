@@ -3,14 +3,13 @@ import { connect } from 'react-redux';
 import { propTypes } from './prop-types';
 import { BlockQuote } from './block-quote';
 import { fetchQuotesAction, setRandomQuote } from '../../actions/quotes';
-import { setLightThemeAction, setDarkThemeAction } from '../../actions/theme';
+import { setTheme } from '../../actions/theme';
 import { StyledDiv, StyledWrapper } from './styled';
+import { THEME_TYPES } from '../../styles';
 
 class ViewQuotes extends React.Component {
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(fetchQuotesAction());
-    dispatch(setLightThemeAction());
+    this.fetchQuotes();
   }
 
   componentDidUpdate(prevProps) {
@@ -22,20 +21,20 @@ class ViewQuotes extends React.Component {
     }
   }
 
+  fetchQuotes = () => {
+    const { dispatch } = this.props;
+    dispatch(fetchQuotesAction());
+  };
+
   selectRandomQuote = () => {
     const { quotes, dispatch } = this.props;
     const quote = quotes[Math.floor(Math.random() * quotes.length)];
     dispatch(setRandomQuote(quote));
   };
 
-  setLightTheme = () => {
+  changeTheme = themeType => {
     const { dispatch } = this.props;
-    dispatch(setLightThemeAction());
-  };
-
-  setDarkTheme = () => {
-    const { dispatch } = this.props;
-    dispatch(setDarkThemeAction());
+    dispatch(setTheme(themeType));
   };
 
   render() {
@@ -43,10 +42,18 @@ class ViewQuotes extends React.Component {
     const { text, author } = quote;
     return (
       <StyledWrapper>
-        <button type='button' onClick={this.setLightTheme} className='btn btn-primary'>
+        <button
+          type='button'
+          onClick={() => this.changeTheme(THEME_TYPES.LIGHT)}
+          className='btn btn-primary'
+        >
           Set light theme
         </button>
-        <button type='button' onClick={this.setDarkTheme} className='btn btn-secondary'>
+        <button
+          type='button'
+          onClick={() => this.changeTheme(THEME_TYPES.DARK)}
+          className='btn btn-secondary'
+        >
           Set dark theme
         </button>
         <StyledDiv isVisible={!loading}>
@@ -59,10 +66,6 @@ class ViewQuotes extends React.Component {
 
 ViewQuotes.propTypes = propTypes;
 
-const mapStateToProps = state => ({
-  quotes: state.quotesReducer.quotes,
-  quote: state.quotesReducer.quote,
-  loading: state.quotesReducer.loading,
-});
+const mapStateToProps = ({ quotesReducer }) => quotesReducer;
 
-export const ConnectedViewQuotes = connect(mapStateToProps)(ViewQuotes);
+export const ViewQuotesPage = connect(mapStateToProps)(ViewQuotes);
