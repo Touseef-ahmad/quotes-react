@@ -1,1 +1,1 @@
-export { ViewQuotes } from './view-quotes';
+export * from './view-quotes';

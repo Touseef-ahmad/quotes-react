@@ -1,51 +1,71 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { propTypes } from './prop-types';
 import { BlockQuote } from './block-quote';
-import { fetchQuotes } from '../../api';
+import { fetchQuotesAction, setRandomQuote } from '../../actions/quotes';
+import { setTheme } from '../../actions/theme';
 import { StyledDiv, StyledWrapper } from './styled';
+import { THEME_TYPES } from '../../styles';
 
 class ViewQuotes extends React.Component {
-  state = {
-    quotes: [],
-    quote: {
-      text: 'Java is to JavaScript what Car is to Carpet.',
-      author: 'A JS Developer',
-    },
-    displayQuoteBox: true,
-  };
-
   componentDidMount() {
-    this.onGetQuotes();
+    this.fetchQuotes();
   }
 
-  onGetQuotes = async () => {
-    const quotes = await fetchQuotes();
-    this.setState({ quotes }, this.chooseRandomQuote);
+  componentDidUpdate(prevProps) {
+    const { quotes } = this.props;
+    const { quotes: prevQuotes } = prevProps;
+    if (quotes !== prevQuotes) {
+      // dispatch something
+      this.selectRandomQuote();
+    }
+  }
+
+  fetchQuotes = () => {
+    const { dispatch } = this.props;
+    dispatch(fetchQuotesAction());
   };
 
-  setQuote = quote => {
-    this.setState({ quote, displayQuoteBox: true });
+  selectRandomQuote = () => {
+    const { quotes, dispatch } = this.props;
+    const quote = quotes[Math.floor(Math.random() * quotes.length)];
+    dispatch(setRandomQuote(quote));
   };
 
-  chooseRandomQuote = () => {
-    this.setState({ displayQuoteBox: false });
-    const { quotes } = this.state;
-    const randomItem = quotes[Math.floor(Math.random() * quotes.length)];
-    // wait for the transition animation to complete
-    setTimeout(() => this.setQuote(randomItem), 700);
+  changeTheme = themeType => {
+    const { dispatch } = this.props;
+    dispatch(setTheme(themeType));
   };
 
   render() {
-    const { quote, displayQuoteBox } = this.state;
+    const { quote, loading } = this.props;
     const { text, author } = quote;
-
     return (
       <StyledWrapper>
-        <StyledDiv isVisible={displayQuoteBox}>
-          <BlockQuote author={author} text={text} chooseRandomQuote={this.chooseRandomQuote} />
+        <button
+          type='button'
+          onClick={() => this.changeTheme(THEME_TYPES.LIGHT)}
+          className='btn btn-primary'
+        >
+          Set light theme
+        </button>
+        <button
+          type='button'
+          onClick={() => this.changeTheme(THEME_TYPES.DARK)}
+          className='btn btn-secondary'
+        >
+          Set dark theme
+        </button>
+        <StyledDiv isVisible={!loading}>
+          <BlockQuote author={author} text={text} chooseRandomQuote={this.selectRandomQuote} />
         </StyledDiv>
       </StyledWrapper>
     );
   }
 }
 
-export { ViewQuotes };
+ViewQuotes.propTypes = propTypes;
+
+const mapStateToProps = ({ quotesReducer }) => quotesReducer;
+
+export const ViewQuotesPage = connect(mapStateToProps)(ViewQuotes);
